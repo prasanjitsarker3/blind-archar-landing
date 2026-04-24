@@ -74,3 +74,21 @@ h5,
 h6 {
   font-family: var(--font-brand), var(--font-hindi), system-ui, sans-serif;
 }
+
+@keyframes topPublishedLeftToRight {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.top-published-track {
+  animation: topPublishedLeftToRight 28s linear infinite;
+  will-change: transform;
+}
+
+.top-published-carousel:hover .top-published-track {
+  animation-play-state: paused;
+}

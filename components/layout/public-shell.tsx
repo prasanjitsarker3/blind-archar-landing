@@ -1,6 +1,6 @@
 import { BottomTabNav } from "@/components/layout/bottom-tab-nav";
-import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "./footer";
 
 type PublicShellProps = {
   children: React.ReactNode;
