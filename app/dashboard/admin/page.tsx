@@ -1,11 +1,6 @@
-"use client";
+import { Clock3, Eye, FileText, PenSquare } from "lucide-react";
 
-import { useState } from "react";
-import { MoreHorizontal } from "lucide-react";
-import { toast } from "sonner";
-
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { AdminPanelTabs } from "@/components/layout/admin-panel-tabs";
 import {
   Card,
   CardContent,
@@ -13,142 +8,185 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const pendingPosts = [
-  { title: "Writing Better Headlines", author: "Anita", status: "Review" },
-  { title: "Design Tokens 101", author: "Ravi", status: "Review" },
-  { title: "Reader Growth Metrics", author: "Sara", status: "Draft" },
+const recentPosts = [
+  {
+    title: "Understanding Quantum Computing Basics",
+    author: "Alex Morgan",
+    date: "4/23/2026",
+    status: "draft",
+    statusClass: "bg-amber-100 text-amber-800",
+  },
+  {
+    title: "Remote Work Culture: What Actually Works",
+    author: "Emma Wilson",
+    date: "4/23/2026",
+    status: "pending",
+    statusClass: "bg-blue-100 text-blue-700",
+  },
+  {
+    title: "Minimalist Design Principles for Modern Interfaces",
+    author: "Emma Wilson",
+    date: "4/21/2026",
+    status: "published",
+    statusClass: "bg-emerald-100 text-emerald-700",
+  },
+  {
+    title: "The Future of Artificial Intelligence in Web Development",
+    author: "Alex Morgan",
+    date: "4/20/2026",
+    status: "published",
+    statusClass: "bg-emerald-100 text-emerald-700",
+  },
+  {
+    title: "Building Scalable SaaS Products: Lessons Learned",
+    author: "Alex Morgan",
+    date: "4/18/2026",
+    status: "published",
+    statusClass: "bg-emerald-100 text-emerald-700",
+  },
+];
+
+const statusOverview = [
+  {
+    title: "Published",
+    value: 4,
+    color: "bg-emerald-500",
+    progress: 67,
+  },
+  {
+    title: "Drafts",
+    value: 1,
+    color: "bg-amber-500",
+    progress: 17,
+  },
+  {
+    title: "Pending Review",
+    value: 1,
+    color: "bg-blue-500",
+    progress: 17,
+  },
 ];
 
 export default function AdminDashboardPage() {
-  const [prompt, setPrompt] = useState("");
-
   return (
     <div className="space-y-6">
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <MetricCard title="Total Posts" value="1,284" delta="+12%" />
-        <MetricCard title="Active Authors" value="73" delta="+4%" />
-        <MetricCard title="Weekly Readers" value="92k" delta="+8%" />
-        <MetricCard title="AI Drafts" value="267" delta="+31%" />
-      </div>
+      <header className="space-y-2">
+        <h2 className="text-4xl font-[var(--font-brand)] leading-tight">
+          Admin Dashboard
+        </h2>
+        <p className="text-xl text-[var(--muted-foreground)]">
+          Manage your content platform
+        </p>
+      </header>
 
-      <Tabs defaultValue="content">
-        <TabsList>
-          <TabsTrigger value="content">Content Management</TabsTrigger>
-          <TabsTrigger value="ai">AI Generation</TabsTrigger>
-        </TabsList>
+      <AdminPanelTabs />
 
-        <TabsContent value="content">
-          <Card>
-            <CardHeader>
-              <CardTitle>Pending Content</CardTitle>
-              <CardDescription>
-                Moderate and approve queued submissions.
-              </CardDescription>
+      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <MetricCard
+          icon={<FileText className="h-5 w-5 text-[var(--muted-foreground)]" />}
+          title="Total Posts"
+          value="6"
+          note="4 published"
+        />
+        <MetricCard
+          icon={
+            <PenSquare className="h-5 w-5 text-[var(--muted-foreground)]" />
+          }
+          title="Total Users"
+          value="3"
+          note="2 authors"
+        />
+        <MetricCard
+          icon={<Eye className="h-5 w-5 text-[var(--muted-foreground)]" />}
+          title="Total Views"
+          value="7,118"
+          note="Across all posts"
+        />
+        <MetricCard
+          icon={<Clock3 className="h-5 w-5 text-[var(--muted-foreground)]" />}
+          title="Avg Read Time"
+          value="9 min"
+          note="Per article"
+        />
+      </section>
+
+      <section className="grid gap-4 lg:grid-cols-3">
+        {statusOverview.map((item) => (
+          <Card key={item.title}>
+            <CardHeader className="pb-3">
+              <div className="flex items-center justify-between gap-4">
+                <CardDescription className="text-xl">
+                  {item.title}
+                </CardDescription>
+                <CardTitle className="text-5xl">{item.value}</CardTitle>
+              </div>
             </CardHeader>
-            <CardContent className="space-y-3">
-              {pendingPosts.map((post) => (
+            <CardContent className="space-y-2">
+              <div className="h-2 rounded-full bg-[var(--muted)]">
                 <div
-                  key={post.title}
-                  className="flex items-center justify-between rounded-xl border border-[var(--border)] p-3"
-                >
-                  <div>
-                    <p className="font-medium text-[var(--foreground)]">
-                      {post.title}
-                    </p>
-                    <p className="text-sm text-[var(--muted-foreground)]">
-                      By {post.author}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Badge variant="secondary">{post.status}</Badge>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                          <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuItem
-                          onClick={() => toast.success("Post approved")}
-                        >
-                          Approve
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onClick={() => toast.error("Post rejected")}
-                        >
-                          Reject
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => toast("Open editor")}>
-                          Open Editor
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </div>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="ai">
-          <Card>
-            <CardHeader>
-              <CardTitle>AI Content Panel</CardTitle>
-              <CardDescription>
-                Generate ideas, outlines, and social snippets.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <Input
-                placeholder="e.g. Generate a blog outline about accessible Hindi typography"
-                value={prompt}
-                onChange={(event) => setPrompt(event.target.value)}
-              />
-              <div className="flex gap-2">
-                <Button onClick={() => toast.success("Outline generated")}>
-                  Generate Outline
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => toast("Summary generated")}
-                >
-                  Generate Summary
-                </Button>
+                  className={`h-2 rounded-full ${item.color}`}
+                  style={{ width: `${item.progress}%` }}
+                />
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
-      </Tabs>
+        ))}
+      </section>
+
+      <section className="space-y-3">
+        <h3 className="text-4xl font-[var(--font-brand)] leading-tight">
+          Recent Posts
+        </h3>
+
+        <div className="space-y-3">
+          {recentPosts.map((post) => (
+            <Card key={post.title}>
+              <CardContent className="flex flex-wrap items-center justify-between gap-3 p-5">
+                <div className="space-y-1">
+                  <p className="text-3xl font-[var(--font-brand)] leading-tight">
+                    {post.title}
+                  </p>
+                  <p className="text-xl text-[var(--muted-foreground)]">
+                    by {post.author} • Updated {post.date}
+                  </p>
+                </div>
+                <span
+                  className={`rounded-full px-3 py-1 text-sm font-medium ${post.statusClass}`}
+                >
+                  {post.status}
+                </span>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
 
 function MetricCard({
+  icon,
   title,
   value,
-  delta,
+  note,
 }: {
+  icon: React.ReactNode;
   title: string;
   value: string;
-  delta: string;
+  note: string;
 }) {
   return (
     <Card>
-      <CardHeader>
-        <CardDescription>{title}</CardDescription>
-        <CardTitle className="text-3xl">{value}</CardTitle>
+      <CardHeader className="space-y-3 pb-3">
+        <div className="flex items-center gap-2 text-xl text-[var(--muted-foreground)]">
+          {icon}
+          {title}
+        </div>
+        <CardTitle className="text-6xl leading-none">{value}</CardTitle>
       </CardHeader>
       <CardContent>
-        <Badge variant="success">{delta}</Badge>
+        <p className="text-lg text-[var(--muted-foreground)]">{note}</p>
       </CardContent>
     </Card>
   );

@@ -1,5 +1,5 @@
 import { AuthorPostsPanel } from "@/components/layout/author-posts-panel";
 
-export default function AuthorDashboardPage() {
+export default function AuthorPostsPage() {
   return <AuthorPostsPanel />;
 }

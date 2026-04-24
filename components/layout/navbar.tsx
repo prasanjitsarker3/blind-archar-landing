@@ -11,8 +11,7 @@ import { PageContainer } from "@/components/layout/page-container";
 const mobileNavItems = [
   { title: "Home", href: "/" },
   { title: "Blog", href: "/blog" },
-  { title: "Author Dashboard", href: "/dashboard/author" },
-  { title: "Admin Dashboard", href: "/dashboard/admin" },
+  { title: "My Posts", href: "/dashboard/author/posts" },
   { title: "Start Writing", href: "/dashboard/author/posts/new" },
 ];
 
@@ -24,34 +23,29 @@ export function Navbar() {
           <div className="grid h-9 w-9 place-items-center rounded-xl bg-[var(--primary)] text-white">
             <PenBox className="h-4 w-4" />
           </div>
-          <div>
-            <p className="font-[var(--font-brand)] text-xl leading-none text-[var(--foreground)]">
-              Blind Archar
-            </p>
-            <p className="text-xs text-[var(--muted-foreground)]">
-              Next Writing Platform
-            </p>
-          </div>
+          <p className="font-[var(--font-brand)] text-xl leading-none text-[var(--foreground)]">
+            ContentHub
+          </p>
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm md:flex">
           <Link
+            href="/"
+            className="text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+          >
+            Home
+          </Link>
+          <Link
             href="/blog"
             className="text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
           >
-            Blog
+            Categories
           </Link>
           <Link
-            href="/dashboard/author"
+            href="/dashboard/author/posts"
             className="text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
           >
-            Author
-          </Link>
-          <Link
-            href="/dashboard/admin"
-            className="text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
-          >
-            Admin
+            My Posts
           </Link>
         </nav>
 

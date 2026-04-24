@@ -11,6 +11,7 @@ import {
   Settings,
   ShieldCheck,
   Sparkles,
+  Users,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -29,7 +30,8 @@ type SidebarIconName =
   | "chart-column-big"
   | "file-pen-line"
   | "sparkles"
-  | "shield-check";
+  | "shield-check"
+  | "users";
 
 const iconMap = {
   "layout-dashboard": LayoutDashboard,
@@ -40,6 +42,7 @@ const iconMap = {
   "file-pen-line": FilePenLine,
   sparkles: Sparkles,
   "shield-check": ShieldCheck,
+  users: Users,
 } as const;
 
 type SidebarNavListProps = {
