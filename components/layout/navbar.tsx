@@ -10,9 +10,10 @@ import { PageContainer } from "@/components/layout/page-container";
 
 const mobileNavItems = [
   { title: "Home", href: "/" },
-  { title: "Blog", href: "/blog" },
-  { title: "My Posts", href: "/dashboard/author/posts" },
-  { title: "Start Writing", href: "/dashboard/author/posts/new" },
+  { title: "Search", href: "/search" },
+  { title: "Feeds", href: "/feeds" },
+  { title: "Write", href: "/write" },
+  { title: "Library", href: "/library" },
 ];
 
 export function Navbar() {
@@ -36,16 +37,28 @@ export function Navbar() {
             Home
           </Link>
           <Link
-            href="/blog"
+            href="/search"
             className="text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
           >
-            Categories
+            Search
           </Link>
           <Link
-            href="/dashboard/author/posts"
+            href="/feeds"
             className="text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
           >
-            My Posts
+            Feeds
+          </Link>
+          <Link
+            href="/write"
+            className="text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+          >
+            Write
+          </Link>
+          <Link
+            href="/library"
+            className="text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+          >
+            Library
           </Link>
         </nav>
 
@@ -61,7 +74,9 @@ export function Navbar() {
           <Button asChild size="sm" className="hidden sm:inline-flex">
             <Link href="/dashboard/author/posts/new">Start Writing</Link>
           </Button>
-          <MobileNavDrawer title="Blind Archar" items={mobileNavItems} />
+          <div className="hidden">
+            <MobileNavDrawer title="ContentHub" items={mobileNavItems} />
+          </div>
         </div>
       </PageContainer>
     </header>

@@ -86,11 +86,21 @@ const trendingStories = [
 ];
 
 const topics = ["Technology", "Design", "Business", "Culture", "Science"];
+const publicRoutes = [
+  { label: "Feed", href: "/" },
+  { label: "Search", href: "/search" },
+  { label: "Feeds", href: "/feeds" },
+  { label: "Explore", href: "/blog" },
+  { label: "Write", href: "/write" },
+  { label: "Library", href: "/library" },
+  { label: "Profile", href: "/profile" },
+  { label: "Login", href: "/login" },
+];
 
 export default function LandingPage() {
   return (
     <>
-      <section className="border-b border-[var(--border)] py-20 sm:py-28 lg:py-32">
+      <section className="flex min-h-[calc(100dvh-5.75rem)] items-center border-b border-[var(--border)] py-16 sm:py-20 md:min-h-0 md:py-28 lg:py-32">
         <PageContainer>
           <div className="max-w-5xl space-y-8">
             <h1 className="max-w-5xl text-5xl font-[var(--font-brand)] font-semibold leading-[0.95] tracking-tight sm:text-7xl lg:text-[5.5rem]">
@@ -251,6 +261,25 @@ export default function LandingPage() {
                 </Link>
               </div>
             </aside>
+          </div>
+        </PageContainer>
+      </section>
+
+      <section className="border-t border-[var(--border)] py-10 sm:py-12">
+        <PageContainer className="space-y-4">
+          <h2 className="text-2xl font-[var(--font-brand)] font-semibold sm:text-3xl">
+            Public Routes
+          </h2>
+          <div className="flex flex-wrap gap-3">
+            {publicRoutes.map((route) => (
+              <Link
+                key={route.href}
+                href={route.href}
+                className="rounded-full border border-[var(--border)] bg-[var(--card)] px-4 py-2 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--muted)]"
+              >
+                {route.label}
+              </Link>
+            ))}
           </div>
         </PageContainer>
       </section>
