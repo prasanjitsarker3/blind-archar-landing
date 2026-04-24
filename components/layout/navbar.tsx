@@ -7,7 +7,7 @@ import { MobileNavDrawer } from "@/components/layout/mobile-nav-drawer";
 import { GoogleSignInButton } from "@/components/google-sign-in-button";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/layout/page-container";
-
+import { UserDropdown } from "@/components/layout/user-dropdown";
 const mobileNavItems = [
   { title: "Home", href: "/" },
   { title: "Search", href: "/search" },
@@ -74,9 +74,10 @@ export function Navbar() {
           <Button asChild size="sm" className="hidden sm:inline-flex">
             <Link href="/dashboard/author/posts/new">Start Writing</Link>
           </Button>
-          <div className="hidden">
-            <MobileNavDrawer title="ContentHub" items={mobileNavItems} />
-          </div>
+
+          <UserDropdown />
+
+          <MobileNavDrawer title="Blind Archar" items={mobileNavItems} />
         </div>
       </PageContainer>
     </header>
