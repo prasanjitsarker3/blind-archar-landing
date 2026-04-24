@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import {
   Clock3,
@@ -46,6 +49,17 @@ const posts = [
 ];
 
 export function AuthorPostsPanel() {
+  const [activeTab, setActiveTab] = useState<"all" | "published" | "draft">("all");
+
+  const allCount = posts.length;
+  const publishedCount = posts.filter(p => p.status === "published").length;
+  const draftsCount = posts.filter(p => p.status === "draft").length;
+
+  const filteredPosts = posts.filter((post) => {
+    if (activeTab === "all") return true;
+    return post.status === activeTab;
+  });
+
   return (
     <div className="space-y-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -95,20 +109,41 @@ export function AuthorPostsPanel() {
       <section className="space-y-4">
         <div className="overflow-x-auto border-b border-[var(--border)]">
           <div className="flex min-w-max items-center gap-6 px-1">
-            <p className="border-b-2 border-[var(--foreground)] px-1 py-3 text-sm font-medium text-[var(--foreground)]">
-              All (3)
-            </p>
-            <p className="px-1 py-3 text-sm font-medium text-[var(--muted-foreground)]">
-              Published (2)
-            </p>
-            <p className="px-1 py-3 text-sm font-medium text-[var(--muted-foreground)]">
-              Drafts (1)
-            </p>
+            <button
+              onClick={() => setActiveTab("all")}
+              className={`px-1 py-3 text-sm font-medium transition-colors ${
+                activeTab === "all"
+                  ? "border-b-2 border-[var(--foreground)] text-[var(--foreground)]"
+                  : "border-b-2 border-transparent text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+              }`}
+            >
+              All ({allCount})
+            </button>
+            <button
+              onClick={() => setActiveTab("published")}
+              className={`px-1 py-3 text-sm font-medium transition-colors ${
+                activeTab === "published"
+                  ? "border-b-2 border-[var(--foreground)] text-[var(--foreground)]"
+                  : "border-b-2 border-transparent text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+              }`}
+            >
+              Published ({publishedCount})
+            </button>
+            <button
+              onClick={() => setActiveTab("draft")}
+              className={`px-1 py-3 text-sm font-medium transition-colors ${
+                activeTab === "draft"
+                  ? "border-b-2 border-[var(--foreground)] text-[var(--foreground)]"
+                  : "border-b-2 border-transparent text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+              }`}
+            >
+              Drafts ({draftsCount})
+            </button>
           </div>
         </div>
 
         <div className="space-y-3">
-          {posts.map((post) => (
+          {filteredPosts.map((post) => (
             <Card key={post.title}>
               <CardContent className="flex flex-col gap-4 p-5 sm:p-7 md:flex-row md:items-start md:justify-between">
                 <div className="space-y-3">
