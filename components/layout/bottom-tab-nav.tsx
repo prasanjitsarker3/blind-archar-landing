@@ -31,8 +31,8 @@ export function BottomTabNav() {
   const isLoggedIn = getIsLoggedIn();
 
   return (
-    <nav className=" w-full  lg:max-w-xl mx-auto fixed inset-x-0 bottom-0 z-50 border-t border-[var(--border)] bg-[color-mix(in_oklab,var(--background),white_92%)]/98 ">
-      <div className="grid grid-cols-5 gap-2 px-3 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-3">
+    <nav className="w-full lg:max-w-xl mx-auto fixed inset-x-0 bottom-4 z-50 rounded-full border border-black/6 bg-white/98 backdrop-blur-sm">
+      <div className="grid grid-cols-5  gap-1 px-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2">
         {tabs.map((tab) => {
           const resolvedHref =
             tab.requiresAuth && !isLoggedIn ? "/login" : tab.href;
@@ -47,19 +47,27 @@ export function BottomTabNav() {
               href={resolvedHref}
               aria-current={active ? "page" : undefined}
               className={cn(
-                "flex min-w-0 scale-100 flex-col items-center justify-center gap-1 rounded-[1.65rem] px-2 py-3 text-[11px] font-semibold uppercase tracking-[0.04em] transition-all duration-150 active:scale-95",
+                "relative flex  min-w-0 flex-col items-center justify-center gap-0.75 rounded-3xl px-2 py-1.5 text-[9px] font-medium tracking-[0.01em] transition-all duration-150 active:scale-95",
                 active
-                  ? "bg-[color-mix(in_oklab,var(--primary),white_92%)] text-[var(--primary)] shadow-[0_1px_0_rgba(79,70,229,0.08)]"
-                  : "text-[#94a3b8] hover:text-[var(--foreground)]",
+                  ? "bg-[#f0eefe] text-[#6c5dd3]"
+                  : "text-[#b0a9c0] hover:text-neutral-600",
               )}
             >
               <Icon
                 className={cn(
-                  "h-7 w-7 transition-transform duration-150",
-                  active && "scale-105",
+                  "h-4.5 w-4.5 transition-transform duration-150",
+                  active ? "scale-105 stroke-[#6c5dd3]" : "stroke-[#b0a9c0]",
                 )}
               />
-              <span>{tab.label}</span>
+
+              <span
+                className={cn(
+                  "leading-none",
+                  active ? "font-semibold" : "font-medium",
+                )}
+              >
+                {tab.label}
+              </span>
             </Link>
           );
         })}
