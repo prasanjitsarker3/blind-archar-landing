@@ -72,10 +72,10 @@ export default function AdminDashboardPage() {
   return (
     <div className="space-y-6">
       <header className="space-y-2">
-        <h2 className="text-4xl font-[var(--font-brand)] leading-tight">
+        <h2 className="text-3xl font-[var(--font-brand)] font-semibold leading-tight">
           Admin Dashboard
         </h2>
-        <p className="text-xl text-[var(--muted-foreground)]">
+        <p className="text-base text-[var(--muted-foreground)]">
           Manage your content platform
         </p>
       </header>
@@ -116,10 +116,10 @@ export default function AdminDashboardPage() {
           <Card key={item.title}>
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between gap-4">
-                <CardDescription className="text-xl">
+                <CardDescription className="text-sm font-medium">
                   {item.title}
                 </CardDescription>
-                <CardTitle className="text-5xl">{item.value}</CardTitle>
+                <CardTitle className="text-3xl font-bold">{item.value}</CardTitle>
               </div>
             </CardHeader>
             <CardContent className="space-y-2">
@@ -135,7 +135,7 @@ export default function AdminDashboardPage() {
       </section>
 
       <section className="space-y-3">
-        <h3 className="text-4xl font-[var(--font-brand)] leading-tight">
+        <h3 className="text-2xl font-[var(--font-brand)] font-semibold leading-tight">
           Recent Posts
         </h3>
 
@@ -144,10 +144,10 @@ export default function AdminDashboardPage() {
             <Card key={post.title}>
               <CardContent className="flex flex-wrap items-center justify-between gap-3 p-5">
                 <div className="space-y-1">
-                  <p className="text-3xl font-[var(--font-brand)] leading-tight">
+                  <p className="text-lg font-[var(--font-brand)] font-semibold leading-tight">
                     {post.title}
                   </p>
-                  <p className="text-xl text-[var(--muted-foreground)]">
+                  <p className="text-sm text-[var(--muted-foreground)]">
                     by {post.author} • Updated {post.date}
                   </p>
                 </div>
@@ -178,15 +178,15 @@ function MetricCard({
 }) {
   return (
     <Card>
-      <CardHeader className="space-y-3 pb-3">
-        <div className="flex items-center gap-2 text-xl text-[var(--muted-foreground)]">
+      <CardHeader className="space-y-1 pb-3">
+        <div className="flex items-center gap-2 text-sm font-medium text-[var(--muted-foreground)]">
           {icon}
           {title}
         </div>
-        <CardTitle className="text-6xl leading-none">{value}</CardTitle>
+        <CardTitle className="text-3xl font-bold">{value}</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="text-lg text-[var(--muted-foreground)]">{note}</p>
+        <p className="text-xs text-[var(--muted-foreground)]">{note}</p>
       </CardContent>
     </Card>
   );

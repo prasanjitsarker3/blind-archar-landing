@@ -49,18 +49,18 @@ export function AuthorPostsPanel() {
   return (
     <div className="space-y-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="space-y-1.5">
-          <h2 className="text-5xl font-[var(--font-brand)] leading-tight">
+        <div className="space-y-1">
+          <h2 className="text-3xl font-[var(--font-brand)] font-semibold leading-tight">
             My Posts
           </h2>
-          <p className="text-2xl text-[var(--muted-foreground)]">
+          <p className="text-base text-[var(--muted-foreground)]">
             Create and manage your articles
           </p>
         </div>
 
         <Button
           asChild
-          className="h-14 gap-2 rounded-2xl px-8 text-3xl font-medium"
+          className="h-10 gap-2 rounded-xl px-5 text-sm font-medium"
         >
           <Link href="/dashboard/author/posts/new">
             <Plus className="h-5 w-5" />
@@ -94,14 +94,14 @@ export function AuthorPostsPanel() {
 
       <section className="space-y-4">
         <div className="overflow-x-auto border-b border-[var(--border)]">
-          <div className="flex min-w-max items-center gap-8 px-1">
-            <p className="border-b-4 border-[var(--foreground)] px-2 py-2 text-4xl font-semibold text-[var(--foreground)]">
+          <div className="flex min-w-max items-center gap-6 px-1">
+            <p className="border-b-2 border-[var(--foreground)] px-1 py-3 text-sm font-medium text-[var(--foreground)]">
               All (3)
             </p>
-            <p className="px-1 py-2 text-4xl font-semibold text-[var(--muted-foreground)]">
+            <p className="px-1 py-3 text-sm font-medium text-[var(--muted-foreground)]">
               Published (2)
             </p>
-            <p className="px-1 py-2 text-4xl font-semibold text-[var(--muted-foreground)]">
+            <p className="px-1 py-3 text-sm font-medium text-[var(--muted-foreground)]">
               Drafts (1)
             </p>
           </div>
@@ -127,23 +127,23 @@ export function AuthorPostsPanel() {
                     </span>
                   </div>
 
-                  <div className="space-y-2">
-                    <CardTitle className="text-5xl leading-tight">
+                  <div className="space-y-1.5">
+                    <CardTitle className="text-lg font-[var(--font-brand)] font-semibold leading-tight">
                       {post.title}
                     </CardTitle>
-                    <p className="max-w-5xl text-2xl text-[var(--muted-foreground)]">
+                    <p className="max-w-3xl text-sm text-[var(--muted-foreground)] line-clamp-2">
                       {post.excerpt}
                     </p>
                   </div>
 
-                  <div className="flex flex-wrap items-center gap-5 text-xl text-[var(--muted-foreground)]">
+                  <div className="flex flex-wrap items-center gap-4 text-sm text-[var(--muted-foreground)]">
                     <span>{post.date}</span>
                     <span className="flex items-center gap-1.5">
-                      <Clock3 className="h-5 w-5" />
+                      <Clock3 className="h-4 w-4" />
                       {post.read}
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <Eye className="h-5 w-5" />
+                      <Eye className="h-4 w-4" />
                       {post.views}
                     </span>
                   </div>
@@ -180,12 +180,12 @@ function MetricCard({
 }) {
   return (
     <Card>
-      <CardHeader className="space-y-3 pb-3">
-        <div className="flex items-center gap-2 text-2xl text-[var(--muted-foreground)]">
+      <CardHeader className="space-y-1 pb-3">
+        <div className="flex items-center gap-2 text-sm font-medium text-[var(--muted-foreground)]">
           {icon}
           {title}
         </div>
-        <CardTitle className="text-6xl leading-none">{value}</CardTitle>
+        <CardTitle className="text-3xl font-bold">{value}</CardTitle>
       </CardHeader>
       <CardContent />
     </Card>

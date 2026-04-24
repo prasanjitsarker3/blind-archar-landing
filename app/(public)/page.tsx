@@ -218,9 +218,9 @@ export default function LandingPage() {
                   {trendingStories.map((story) => (
                     <div
                       key={story.rank}
-                      className="grid grid-cols-[2.75rem_1fr] gap-3"
+                      className="grid grid-cols-[auto_1fr] gap-4 sm:gap-5"
                     >
-                      <span className="text-5xl font-semibold tracking-tight text-[color-mix(in_oklab,var(--muted-foreground),white_55%)]">
+                      <span className="text-4xl font-semibold tracking-tight text-[color-mix(in_oklab,var(--muted-foreground),white_55%)]">
                         {story.rank}
                       </span>
                       <div className="space-y-1.5">
