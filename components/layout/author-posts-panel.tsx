@@ -49,11 +49,13 @@ const posts = [
 ];
 
 export function AuthorPostsPanel() {
-  const [activeTab, setActiveTab] = useState<"all" | "published" | "draft">("all");
+  const [activeTab, setActiveTab] = useState<"all" | "published" | "draft">(
+    "all",
+  );
 
   const allCount = posts.length;
-  const publishedCount = posts.filter(p => p.status === "published").length;
-  const draftsCount = posts.filter(p => p.status === "draft").length;
+  const publishedCount = posts.filter((p) => p.status === "published").length;
+  const draftsCount = posts.filter((p) => p.status === "draft").length;
 
   const filteredPosts = posts.filter((post) => {
     if (activeTab === "all") return true;
@@ -64,7 +66,7 @@ export function AuthorPostsPanel() {
     <div className="space-y-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
-          <h2 className="text-3xl font-[var(--font-brand)] font-semibold leading-tight">
+          <h2 className="text-3xl font-[var(--font-brand)] leading-tight">
             My Posts
           </h2>
           <p className="text-base text-[var(--muted-foreground)]">
@@ -107,14 +109,14 @@ export function AuthorPostsPanel() {
       </section>
 
       <section className="space-y-4">
-        <div className="overflow-x-auto border-b border-[var(--border)]">
+        <div className="overflow-x-auto border-b border-border">
           <div className="flex min-w-max items-center gap-6 px-1">
             <button
               onClick={() => setActiveTab("all")}
               className={`px-1 py-3 text-sm font-medium transition-colors ${
                 activeTab === "all"
-                  ? "border-b-2 border-[var(--foreground)] text-[var(--foreground)]"
-                  : "border-b-2 border-transparent text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+                  ? "border-b-2 border-foreground text-foreground"
+                  : "border-b-2 border-transparent text-muted-foreground hover:text-foreground"
               }`}
             >
               All ({allCount})
@@ -123,8 +125,8 @@ export function AuthorPostsPanel() {
               onClick={() => setActiveTab("published")}
               className={`px-1 py-3 text-sm font-medium transition-colors ${
                 activeTab === "published"
-                  ? "border-b-2 border-[var(--foreground)] text-[var(--foreground)]"
-                  : "border-b-2 border-transparent text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+                  ? "border-b-2 border-foreground text-foreground"
+                  : "border-b-2 border-transparent text-muted-foreground hover:text-foreground"
               }`}
             >
               Published ({publishedCount})
