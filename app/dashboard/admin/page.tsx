@@ -1,6 +1,7 @@
 import { Clock3, Eye, FileText, PenSquare } from "lucide-react";
 
-import { AdminPanelTabs } from "@/components/layout/admin-panel-tabs";
+import { AdminPanelTabs } from "@/components/AdminComponents/admin-panel-tabs";
+import { AdminProfileSection } from "@/components/AdminComponents/admin-profile-section";
 import {
   Card,
   CardContent,
@@ -82,6 +83,8 @@ export default function AdminDashboardPage() {
 
       <AdminPanelTabs />
 
+      <AdminProfileSection />
+
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <MetricCard
           icon={<FileText className="h-5 w-5 text-[var(--muted-foreground)]" />}
@@ -119,7 +122,9 @@ export default function AdminDashboardPage() {
                 <CardDescription className="text-sm font-medium">
                   {item.title}
                 </CardDescription>
-                <CardTitle className="text-3xl font-bold">{item.value}</CardTitle>
+                <CardTitle className="text-3xl font-bold">
+                  {item.value}
+                </CardTitle>
               </div>
             </CardHeader>
             <CardContent className="space-y-2">

@@ -1,0 +1,6 @@
+<svg width="320" height="320" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="320" height="320" fill="#E5E7EB"/>
+  <circle cx="160" cy="122" r="64" fill="#64748B"/>
+  <path d="M56 296C56 232.49 107.49 181 171 181H149C212.51 181 264 232.49 264 296V320H56V296Z" fill="#475569"/>
+  <text x="160" y="305" text-anchor="middle" fill="#F8FAFC" font-size="36" font-family="Arial, sans-serif">AM</text>
+</svg>

@@ -1,6 +1,6 @@
 import { Check, Edit3, Eye, Sparkles, Trash2, X } from "lucide-react";
 
-import { AdminPanelTabs } from "@/components/layout/admin-panel-tabs";
+import { AdminPanelTabs } from "@/components/AdminComponents/admin-panel-tabs";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 

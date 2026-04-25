@@ -1,6 +1,6 @@
 import { ShieldCheck, UserRound } from "lucide-react";
 
-import { AdminPanelTabs } from "@/components/layout/admin-panel-tabs";
+import { AdminPanelTabs } from "@/components/AdminComponents/admin-panel-tabs";
 import {
   Card,
   CardContent,
