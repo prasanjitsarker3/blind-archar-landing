@@ -1,0 +1,99 @@
+{
+  "common": {
+    "loading": "লোড হচ্ছে...",
+    "error": "কিছু একটা ভুল হয়েছে",
+    "save": "সংরক্ষণ",
+    "cancel": "বাতিল",
+    "back": "ফিরে যান",
+    "edit": "সম্পাদনা",
+    "delete": "মুছুন",
+    "search": "অনুসন্ধান",
+    "noResults": "কোনো ফলাফল পাওয়া যায়নি"
+  },
+  "nav": {
+    "home": "হোম",
+    "blog": "ব্লগ",
+    "shop": "শপ",
+    "dashboard": "ড্যাশবোর্ড",
+    "login": "লগইন",
+    "logout": "লগআউট",
+    "profile": "প্রোফাইল",
+    "settings": "সেটিংস"
+  },
+  "auth": {
+    "login": {
+      "title": "স্বাগতম",
+      "subtitle": "আপনার অ্যাকাউন্টে সাইন ইন করুন",
+      "email": "ইমেইল ঠিকানা",
+      "emailPlaceholder": "আপনার@ইমেইল.com",
+      "password": "পাসওয়ার্ড",
+      "passwordPlaceholder": "••••••••",
+      "submit": "সাইন ইন",
+      "submitting": "সাইন ইন হচ্ছে...",
+      "noAccount": "অ্যাকাউন্ট নেই?",
+      "register": "রেজিস্ট্রেশন",
+      "forgotPassword": "পাসওয়ার্ড ভুলে গেছেন?"
+    },
+    "register": {
+      "title": "অ্যাকাউন্ট তৈরি করুন",
+      "subtitle": "আজই আমাদের সাথে যোগ দিন",
+      "name": "পূর্ণ নাম",
+      "namePlaceholder": "আপনার নাম",
+      "email": "ইমেইল ঠিকানা",
+      "emailPlaceholder": "আপনার@ইমেইল.com",
+      "password": "পাসওয়ার্ড",
+      "passwordPlaceholder": "••••••••",
+      "confirmPassword": "পাসওয়ার্ড নিশ্চিত করুন",
+      "confirmPasswordPlaceholder": "••••••••",
+      "submit": "অ্যাকাউন্ট তৈরি করুন",
+      "submitting": "তৈরি হচ্ছে...",
+      "hasAccount": "ইতিমধ্যে অ্যাকাউন্ট আছে?",
+      "login": "সাইন ইন"
+    },
+    "errors": {
+      "invalidCredentials": "ইমেইল বা পাসওয়ার্ড ভুল",
+      "sessionExpired": "আপনার সেশন শেষ হয়ে গেছে। আবার সাইন ইন করুন।",
+      "unauthorized": "আপনার এই পেজ দেখার অনুমতি নেই।"
+    }
+  },
+  "dashboard": {
+    "admin": {
+      "title": "অ্যাডমিন ড্যাশবোর্ড",
+      "overview": "সারসংক্ষেপ",
+      "analytics": "বিশ্লেষণ",
+      "allPosts": "সব পোস্ট",
+      "users": "ব্যবহারকারী",
+      "settings": "সেটিংস",
+      "stats": {
+        "totalPosts": "মোট পোস্ট",
+        "totalUsers": "মোট ব্যবহারকারী",
+        "totalViews": "মোট ভিউ",
+        "avgReadTime": "গড় পড়ার সময়"
+      }
+    },
+    "author": {
+      "title": "লেখক ড্যাশবোর্ড",
+      "myPosts": "আমার পোস্ট",
+      "newPost": "নতুন পোস্ট",
+      "aiWriter": "এআই লেখক",
+      "editPosts": "পোস্ট সম্পাদনা",
+      "settings": "সেটিংস"
+    }
+  },
+  "blog": {
+    "title": "ব্লগ",
+    "readMore": "আরও পড়ুন",
+    "publishedOn": "প্রকাশিত",
+    "by": "লিখেছেন",
+    "minuteRead": "{count} মিনিট পড়া",
+    "categories": "বিভাগ",
+    "tags": "ট্যাগ"
+  },
+  "shop": {
+    "title": "শপ",
+    "addToCart": "কার্টে যোগ করুন",
+    "outOfStock": "স্টক নেই",
+    "price": "মূল্য",
+    "currency": "BDT"
+  }
+}

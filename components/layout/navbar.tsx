@@ -11,6 +11,7 @@ import { GoogleSignInButton } from "@/components/google-sign-in-button";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/layout/page-container";
 import { UserDropdown } from "@/components/layout/user-dropdown";
+import { useAppSelector } from "@/store/hooks";
 
 const collectionMenus = [
   {
@@ -52,6 +53,7 @@ const mobileNavItems = [
 ];
 
 export function Navbar() {
+  const isAuthenticated = useAppSelector((s) => s.auth.isAuthenticated);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const closeTimerRef = useRef<number | null>(null);
 
@@ -128,12 +130,16 @@ export function Navbar() {
             <HeaderSearch compact />
           </div>
           <ThemeToggle />
-          <GoogleSignInButton />
-          <Button asChild size="sm" className="hidden sm:inline-flex">
-            <Link href="/dashboard/author/posts/new">Start Writing</Link>
-          </Button>
-
-          <UserDropdown />
+          {isAuthenticated ? (
+            <>
+              <Button asChild size="sm" className="hidden sm:inline-flex">
+                <Link href="/dashboard/author/posts/new">Start Writing</Link>
+              </Button>
+              <UserDropdown />
+            </>
+          ) : (
+            <GoogleSignInButton />
+          )}
 
           <MobileNavDrawer title="Blind Archar" items={mobileNavItems} />
         </div>

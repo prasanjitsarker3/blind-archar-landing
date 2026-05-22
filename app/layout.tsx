@@ -39,7 +39,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${balooDa2.variable} ${hind.variable} antialiased`}
     >
-      <body className="min-h-dvh bg-[var(--background)] font-[var(--font-sans)] text-[var(--foreground)]">
+      <body suppressHydrationWarning className="min-h-dvh bg-[var(--background)] font-[var(--font-sans)] text-[var(--foreground)]">
         <AppProviders>{children}</AppProviders>
       </body>
     </html>

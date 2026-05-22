@@ -1,0 +1,99 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "save": "Save",
+    "cancel": "Cancel",
+    "back": "Back",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search",
+    "noResults": "No results found"
+  },
+  "nav": {
+    "home": "Home",
+    "blog": "Blog",
+    "shop": "Shop",
+    "dashboard": "Dashboard",
+    "login": "Login",
+    "logout": "Logout",
+    "profile": "Profile",
+    "settings": "Settings"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Sign in to your account",
+      "email": "Email address",
+      "emailPlaceholder": "you@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "submit": "Sign In",
+      "submitting": "Signing in...",
+      "noAccount": "Don't have an account?",
+      "register": "Register",
+      "forgotPassword": "Forgot password?"
+    },
+    "register": {
+      "title": "Create an account",
+      "subtitle": "Join us today",
+      "name": "Full name",
+      "namePlaceholder": "John Doe",
+      "email": "Email address",
+      "emailPlaceholder": "you@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "confirmPassword": "Confirm password",
+      "confirmPasswordPlaceholder": "••••••••",
+      "submit": "Create Account",
+      "submitting": "Creating account...",
+      "hasAccount": "Already have an account?",
+      "login": "Sign in"
+    },
+    "errors": {
+      "invalidCredentials": "Invalid email or password",
+      "sessionExpired": "Your session has expired. Please sign in again.",
+      "unauthorized": "You are not authorized to view this page."
+    }
+  },
+  "dashboard": {
+    "admin": {
+      "title": "Admin Dashboard",
+      "overview": "Overview",
+      "analytics": "Analytics",
+      "allPosts": "All Posts",
+      "users": "Users",
+      "settings": "Settings",
+      "stats": {
+        "totalPosts": "Total Posts",
+        "totalUsers": "Total Users",
+        "totalViews": "Total Views",
+        "avgReadTime": "Avg Read Time"
+      }
+    },
+    "author": {
+      "title": "Author Dashboard",
+      "myPosts": "My Posts",
+      "newPost": "New Post",
+      "aiWriter": "AI Writer",
+      "editPosts": "Edit Posts",
+      "settings": "Settings"
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "readMore": "Read more",
+    "publishedOn": "Published on",
+    "by": "by",
+    "minuteRead": "{count} min read",
+    "categories": "Categories",
+    "tags": "Tags"
+  },
+  "shop": {
+    "title": "Shop",
+    "addToCart": "Add to Cart",
+    "outOfStock": "Out of Stock",
+    "price": "Price",
+    "currency": "USD"
+  }
+}
