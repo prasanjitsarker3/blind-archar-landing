@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { useForm, useWatch } from "react-hook-form";
+import { useEffect, useMemo, useRef } from "react";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
@@ -17,16 +17,18 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { SearchableCombobox } from "@/components/ui/searchable-combobox";
 import { cn } from "@/lib/utils";
 import {
-  useCreateCategoryMutation,
-  useUpdateCategoryMutation,
-} from "@/store/api/category.api";
+  useCreateSubCategoryMutation,
+  useUpdateSubCategoryMutation,
+} from "@/store/api/sub.category.api";
+import { useGetCategoriesQuery } from "@/store/api/category.api";
 import {
-  categorySchema,
-  type CategoryFormValues,
-} from "@/lib/validations/category";
-import type { Category } from "@/types/category";
+  subCategorySchema,
+  type SubCategoryFormValues,
+} from "@/lib/validations/sub-category";
+import type { SubCategory } from "@/types/category";
 
 function slugify(value: string) {
   return value
@@ -59,25 +61,37 @@ function Field({
   );
 }
 
-type CategoryDialogProps = {
+type SubCategoryDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  category?: Category;
+  subCategory?: SubCategory;
 };
 
-export function CategoryDialog({
+export function SubCategoryDialog({
   open,
   onOpenChange,
-  category,
-}: CategoryDialogProps) {
-  const isEdit = !!category;
+  subCategory,
+}: SubCategoryDialogProps) {
+  const isEdit = !!subCategory;
   const slugLocked = useRef(isEdit);
 
-  const [createCategory, { isLoading: isCreating }] =
-    useCreateCategoryMutation();
-  const [updateCategory, { isLoading: isUpdating }] =
-    useUpdateCategoryMutation();
+  const [createSubCategory, { isLoading: isCreating }] =
+    useCreateSubCategoryMutation();
+  const [updateSubCategory, { isLoading: isUpdating }] =
+    useUpdateSubCategoryMutation();
   const isLoading = isCreating || isUpdating;
+
+  const { data: categoriesData, isLoading: isLoadingCategories } =
+    useGetCategoriesQuery({ limit: 100 });
+
+  const categoryOptions = useMemo(
+    () =>
+      (categoriesData?.data ?? []).map((cat) => ({
+        value: cat.id,
+        label: cat.name,
+      })),
+    [categoriesData],
+  );
 
   const {
     register,
@@ -87,14 +101,13 @@ export function CategoryDialog({
     setValue,
     control,
     formState: { errors },
-  } = useForm<CategoryFormValues>({
-    resolver: zodResolver(categorySchema),
-    defaultValues: { name: "", slug: "" },
+  } = useForm<SubCategoryFormValues>({
+    resolver: zodResolver(subCategorySchema),
+    defaultValues: { name: "", slug: "", categoryId: "" },
   });
 
   const nameValue = useWatch({ control, name: "name" });
 
-  // auto-generate slug from name when not locked
   useEffect(() => {
     if (!slugLocked.current) {
       setValue("slug", slugify(nameValue ?? ""), { shouldValidate: false });
@@ -106,25 +119,30 @@ export function CategoryDialog({
       slugLocked.current = isEdit;
       reset(
         isEdit
-          ? { name: category.name, slug: category.slug }
-          : { name: "", slug: "" },
+          ? {
+              name: subCategory.name,
+              slug: subCategory.slug,
+              categoryId: subCategory.categoryId ?? "",
+            }
+          : { name: "", slug: "", categoryId: "" },
       );
     }
-  }, [open, isEdit, category, reset]);
+  }, [open, isEdit, subCategory, reset]);
 
   const { onChange: onSlugChange, ...slugRegistration } = register("slug");
 
-  const onSubmit = async (values: CategoryFormValues) => {
+  const onSubmit = async (values: SubCategoryFormValues) => {
     try {
       const payload = {
         name: values.name,
+        categoryId: values.categoryId,
         ...(values.slug?.trim() && { slug: values.slug.trim() }),
       };
 
       if (isEdit) {
-        await updateCategory({ id: category.id, body: payload }).unwrap();
+        await updateSubCategory({ id: subCategory.id, body: payload }).unwrap();
       } else {
-        await createCategory(payload).unwrap();
+        await createSubCategory(payload).unwrap();
       }
 
       onOpenChange(false);
@@ -146,12 +164,12 @@ export function CategoryDialog({
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle>
-            {isEdit ? "Edit Category" : "Create Category"}
+            {isEdit ? "Edit Sub Category" : "Create Sub Category"}
           </DialogTitle>
           <DialogDescription>
             {isEdit
-              ? "Update the category details below."
-              : "Fill in the details to create a new category."}
+              ? "Update the sub category details below."
+              : "Fill in the details to create a new sub category."}
           </DialogDescription>
         </DialogHeader>
 
@@ -160,10 +178,34 @@ export function CategoryDialog({
           noValidate
           className="space-y-4"
         >
+          <Field
+            label="Category"
+            id="categoryId"
+            error={errors.categoryId?.message}
+          >
+            <Controller
+              control={control}
+              name="categoryId"
+              render={({ field }) => (
+                <SearchableCombobox
+                  id="categoryId"
+                  options={categoryOptions}
+                  value={field.value}
+                  onChange={field.onChange}
+                  loading={isLoadingCategories}
+                  invalid={!!errors.categoryId}
+                  placeholder="Select a category"
+                  searchPlaceholder="Search categories…"
+                  emptyMessage="No categories found."
+                />
+              )}
+            />
+          </Field>
+
           <Field label="Name" id="name" error={errors.name?.message}>
             <Input
               id="name"
-              placeholder="e.g. Health & Fitness"
+              placeholder="e.g. History"
               className={cn(
                 errors.name &&
                   "border-destructive focus-visible:ring-destructive",
@@ -175,7 +217,7 @@ export function CategoryDialog({
           <Field label="Slug" id="slug" error={errors.slug?.message}>
             <Input
               id="slug"
-              placeholder="e.g. health-fitness"
+              placeholder="e.g. history"
               className="font-mono text-sm"
               {...slugRegistration}
               onChange={(e) => {

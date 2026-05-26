@@ -16,9 +16,9 @@ export const USER_KEY = "auth_user";
 
 const ACCESS_COOKIE_OPTIONS = {
   sameSite: "lax" as const,
-  expires: new Date(Date.now() + 30 * 60 * 1000), // 30 min
+  expires: new Date(Date.now() + 30 * 60 * 1000),
 };
-const REFRESH_COOKIE_OPTIONS = { sameSite: "lax" as const, expires: 15 }; // 15 days
+const REFRESH_COOKIE_OPTIONS = { sameSite: "lax" as const, expires: 15 };
 
 const rawBaseQuery = fetchBaseQuery({
   baseUrl: API_BASE_URL,

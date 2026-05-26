@@ -19,6 +19,8 @@ const buttonVariants = cva(
           "bg-transparent text-[var(--foreground)] hover:bg-[var(--muted)]",
         success:
           "bg-[var(--accent)] text-white shadow-sm hover:bg-[color-mix(in_oklab,var(--accent),black_10%)]",
+        destructive:
+          "bg-[var(--destructive)] text-[var(--destructive-foreground)] shadow-sm hover:bg-[color-mix(in_oklab,var(--destructive),black_10%)]",
       },
       size: {
         default: "h-10 px-4 py-2",

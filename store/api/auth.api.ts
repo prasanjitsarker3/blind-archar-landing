@@ -23,7 +23,7 @@ export type RegisterRequest = {
 // Matches server config: access_token 30 min, refresh_token 15 days
 export const ACCESS_COOKIE_OPTIONS = {
   sameSite: "lax" as const,
-  expires: new Date(Date.now() + 30 * 60 * 1000),
+  expires: 1 / 48, // 30 minutes (in days)
 };
 export const REFRESH_COOKIE_OPTIONS = {
   sameSite: "lax" as const,

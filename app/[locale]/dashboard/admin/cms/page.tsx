@@ -1,14 +1,18 @@
 "use client";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import CollectionTable from "@/components/AdminComponents/collection/CollectionTable";
 import CategoryTable from "@/components/AdminComponents/category/CategoryTable";
 import LanguageTable from "@/components/AdminComponents/language/LanguageTable";
 import TagTable from "@/components/AdminComponents/tags/TagTable";
+import SubCategoryTable from "@/components/AdminComponents/sub-category/SubCategoryTable";
 
 const tabs = [
-  { value: "collection", label: "Collection", content: <CollectionTable /> },
   { value: "category", label: "Category", content: <CategoryTable /> },
+  {
+    value: "sub-category",
+    label: "Sub Category",
+    content: <SubCategoryTable />,
+  },
   { value: "language", label: "Language", content: <LanguageTable /> },
   { value: "tags", label: "Tags", content: <TagTable /> },
 ];
@@ -25,7 +29,7 @@ export default function CMSManagement() {
         </p>
       </div>
 
-      <Tabs defaultValue="collection">
+      <Tabs defaultValue="category">
         <TabsList className="mb-4">
           {tabs.map((tab) => (
             <TabsTrigger key={tab.value} value={tab.value}>

@@ -4,6 +4,7 @@ export enum TagTypes {
   post = "post",
   language = "language",
   category = "category",
+  subCategory = "subCategory",
 }
 
 export const TagTypeList = [
@@ -12,4 +13,5 @@ export const TagTypeList = [
   TagTypes.post,
   TagTypes.language,
   TagTypes.category,
+  TagTypes.subCategory,
 ];

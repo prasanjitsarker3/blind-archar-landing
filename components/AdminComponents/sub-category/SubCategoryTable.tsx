@@ -24,25 +24,25 @@ import { DataPagination } from "@/components/ui/data-pagination";
 import { TableSearch } from "@/components/ui/table-search";
 import { TableSkeleton } from "@/components/ui/table-skeleton";
 import {
-  useGetCategoriesQuery,
-  useDeleteCategoryMutation,
-} from "@/store/api/category.api";
+  useGetSubCategoriesQuery,
+  useDeleteSubCategoryMutation,
+} from "@/store/api/sub.category.api";
 import { useDebounce } from "@/hooks/use-debounce";
-import type { Category } from "@/types/category";
-import { CategoryDialog } from "./CategoryDailog";
+import type { SubCategory } from "@/types/category";
+import { SubCategoryDialog } from "./SubCategoryDialog";
+import { ViewSubCategoryDialog } from "./SubCategoryView";
 import { DeleteConfirmDialog } from "@/components/ui/delete-confirm-dialog";
-import { ViewCategoryDialog } from "./CategoryView";
 
 function RowActions({
-  category,
+  subCategory,
   onView,
   onEdit,
   onDelete,
 }: {
-  category: Category;
-  onView: (c: Category) => void;
-  onEdit: (c: Category) => void;
-  onDelete: (c: Category) => void;
+  subCategory: SubCategory;
+  onView: (s: SubCategory) => void;
+  onEdit: (s: SubCategory) => void;
+  onDelete: (s: SubCategory) => void;
 }) {
   return (
     <DropdownMenu>
@@ -55,14 +55,14 @@ function RowActions({
       <DropdownMenuContent align="end">
         <DropdownMenuItem
           className="flex items-center gap-2"
-          onSelect={() => onView(category)}
+          onSelect={() => onView(subCategory)}
         >
           <Eye className="h-4 w-4" />
           View
         </DropdownMenuItem>
         <DropdownMenuItem
           className="flex items-center gap-2"
-          onSelect={() => onEdit(category)}
+          onSelect={() => onEdit(subCategory)}
         >
           <Pencil className="h-4 w-4" />
           Edit
@@ -70,7 +70,7 @@ function RowActions({
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="flex items-center gap-2 text-destructive focus:text-destructive"
-          onSelect={() => onDelete(category)}
+          onSelect={() => onDelete(subCategory)}
         >
           <Trash2 className="h-4 w-4" />
           Delete
@@ -80,24 +80,24 @@ function RowActions({
   );
 }
 
-const CategoryTable = () => {
+const SubCategoryTable = () => {
   const [page, setPage] = useState(1);
   const [searchInput, setSearchInput] = useState("");
   const [createOpen, setCreateOpen] = useState(false);
-  const [editTarget, setEditTarget] = useState<Category | null>(null);
-  const [viewTarget, setViewTarget] = useState<Category | null>(null);
-  const [deleteTarget, setDeleteTarget] = useState<Category | null>(null);
+  const [editTarget, setEditTarget] = useState<SubCategory | null>(null);
+  const [viewTarget, setViewTarget] = useState<SubCategory | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<SubCategory | null>(null);
 
   const search = useDebounce(searchInput, 400);
 
-  const { data, isLoading, isFetching } = useGetCategoriesQuery({
+  const { data, isLoading, isFetching } = useGetSubCategoriesQuery({
     page,
     limit: 10,
     searchTerm: search,
   });
 
-  const [deleteCategory, { isLoading: isDeleting }] =
-    useDeleteCategoryMutation();
+  const [deleteSubCategory, { isLoading: isDeleting }] =
+    useDeleteSubCategoryMutation();
 
   const handleSearchChange = (value: string) => {
     setSearchInput(value);
@@ -107,11 +107,13 @@ const CategoryTable = () => {
   const handleConfirmDelete = async () => {
     if (!deleteTarget) return;
     try {
-      await deleteCategory(deleteTarget.id).unwrap();
+      await deleteSubCategory(deleteTarget.id).unwrap();
       setDeleteTarget(null);
     } catch (err: unknown) {
       const apiMessage = (err as { data?: { message?: string } })?.data?.message;
-      toast.error(apiMessage ?? "Failed to delete category. Please try again.");
+      toast.error(
+        apiMessage ?? "Failed to delete sub category. Please try again.",
+      );
     }
   };
 
@@ -124,7 +126,7 @@ const CategoryTable = () => {
         <TableSearch
           value={searchInput}
           onChange={handleSearchChange}
-          placeholder="Search categories…"
+          placeholder="Search sub categories…"
         />
         <div className="flex items-center gap-3">
           {data?.meta && (
@@ -134,7 +136,7 @@ const CategoryTable = () => {
           )}
           <Button size="sm" onClick={() => setCreateOpen(true)}>
             <Plus className="mr-1.5 h-4 w-4" />
-            New Category
+            New Sub Category
           </Button>
         </div>
       </div>
@@ -149,38 +151,57 @@ const CategoryTable = () => {
               <TableRow className="bg-muted/50">
                 <TableHead>Name</TableHead>
                 <TableHead>Slug</TableHead>
+                <TableHead>Category</TableHead>
+                <TableHead>Created At</TableHead>
                 <TableHead className="w-12" />
               </TableRow>
             </TableHeader>
 
             <TableBody>
               {isLoading ? (
-                <TableSkeleton rows={10} columns={3} />
+                <TableSkeleton rows={10} columns={5} />
               ) : data?.data.length === 0 ? (
                 <TableRow>
                   <TableCell
-                    colSpan={3}
+                    colSpan={5}
                     className="py-12 text-center text-muted-foreground"
                   >
                     {searchInput
-                      ? `No categories matched "${searchInput}".`
-                      : "No categories found."}
+                      ? `No sub categories matched "${searchInput}".`
+                      : "No sub categories found."}
                   </TableCell>
                 </TableRow>
               ) : (
-                data?.data.map((category) => (
-                  <TableRow key={category.id} className="hover:bg-muted/40">
+                data?.data.map((subCategory) => (
+                  <TableRow key={subCategory.id} className="hover:bg-muted/40">
                     <TableCell className="font-medium">
-                      {category.name}
+                      {subCategory.name}
                     </TableCell>
                     <TableCell>
                       <span className="rounded bg-muted px-2 py-0.5 font-mono text-xs font-semibold tracking-wide">
-                        {category.slug}
+                        {subCategory.slug}
                       </span>
                     </TableCell>
                     <TableCell>
+                      {subCategory.category?.name ? (
+                        <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+                          {subCategory.category.name}
+                        </span>
+                      ) : (
+                        <span className="text-xs text-muted-foreground">—</span>
+                      )}
+                    </TableCell>
+                    <TableCell className="text-sm text-muted-foreground">
+                      {subCategory.createdAt
+                        ? new Date(subCategory.createdAt).toLocaleDateString(
+                            "en-US",
+                            { year: "numeric", month: "short", day: "numeric" },
+                          )
+                        : "—"}
+                    </TableCell>
+                    <TableCell>
                       <RowActions
-                        category={category}
+                        subCategory={subCategory}
                         onView={setViewTarget}
                         onEdit={setEditTarget}
                         onDelete={setDeleteTarget}
@@ -201,23 +222,23 @@ const CategoryTable = () => {
       </div>
 
       {/* Create dialog */}
-      <CategoryDialog open={createOpen} onOpenChange={setCreateOpen} />
+      <SubCategoryDialog open={createOpen} onOpenChange={setCreateOpen} />
 
       {/* Edit dialog */}
       {editTarget && (
-        <CategoryDialog
+        <SubCategoryDialog
           open={!!editTarget}
           onOpenChange={(open) => !open && setEditTarget(null)}
-          category={editTarget}
+          subCategory={editTarget}
         />
       )}
 
       {/* View dialog */}
       {viewTarget && (
-        <ViewCategoryDialog
+        <ViewSubCategoryDialog
           open={!!viewTarget}
           onOpenChange={(open) => !open && setViewTarget(null)}
-          category={viewTarget}
+          subCategory={viewTarget}
         />
       )}
 
@@ -227,7 +248,7 @@ const CategoryTable = () => {
           open={!!deleteTarget}
           onOpenChange={(open) => !open && setDeleteTarget(null)}
           itemName={deleteTarget.name}
-          title="Delete Category"
+          title="Delete Sub Category"
           onConfirm={handleConfirmDelete}
           isLoading={isDeleting}
         />
@@ -236,4 +257,4 @@ const CategoryTable = () => {
   );
 };
 
-export default CategoryTable;
+export default SubCategoryTable;
